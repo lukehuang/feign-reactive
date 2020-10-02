@@ -15,7 +15,7 @@ public class MonoMethodHandler implements MethodHandler {
 	@SuppressWarnings("unchecked")
 	public Mono<Object> invoke(final Object[] argv) {
 		try {
-			return Mono.from((Publisher)methodHandler.invoke(argv));
+			return Mono.fromDirect((Publisher<Object>)methodHandler.invoke(argv));
 		} catch (Throwable throwable) {
 			return Mono.error(throwable);
 		}

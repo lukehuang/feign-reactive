@@ -27,7 +27,7 @@ public class LoadBalancerPublisherClient implements PublisherHttpClient {
 
     @Override
     public Publisher<Object> executeRequest(ReactiveHttpRequest request) {
-        return Mono.from(reactiveLoadBalancer.choose())
+        return Mono.fromDirect(reactiveLoadBalancer.choose())
                 .flatMapMany(serviceInstanceResponse -> {
                     URI lbUrl = reconstructURI(serviceInstanceResponse.getServer(), request.uri());
                     ReactiveHttpRequest lbRequest = new ReactiveHttpRequest(request, lbUrl);

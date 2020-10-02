@@ -22,6 +22,6 @@ public class MonoPublisherHttpClient implements PublisherHttpClient {
 	@Override
 	public Mono<Object> executeRequest(ReactiveHttpRequest request) {
 		Mono<ReactiveHttpResponse> response = Mono.defer(() -> reactiveHttpClient.executeRequest(request));
-		return response.flatMap(resp -> Mono.from(resp.body()));
+		return response.flatMap(resp -> Mono.fromDirect(resp.body()));
 	}
 }

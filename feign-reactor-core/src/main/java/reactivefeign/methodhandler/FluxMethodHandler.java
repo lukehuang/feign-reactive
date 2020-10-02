@@ -15,7 +15,7 @@ public class FluxMethodHandler implements MethodHandler {
 	@SuppressWarnings("unchecked")
 	public Flux<Object> invoke(final Object[] argv) {
 		try {
-			return Flux.from((Publisher)methodHandler.invoke(argv));
+			return Flux.from((Publisher<Object>)methodHandler.invoke(argv));
 		} catch (Throwable throwable) {
 			return Flux.error(throwable);
 		}
