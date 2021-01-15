@@ -3,6 +3,7 @@ package reactivefeign.client.log;
 import feign.MethodMetadata;
 import feign.Target;
 import org.reactivestreams.Publisher;
+import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import reactivefeign.client.ReactiveHttpRequest;
 import reactivefeign.client.ReactiveHttpResponse;
@@ -22,12 +23,17 @@ import java.util.stream.Collectors;
  */
 public class DefaultReactiveLogger implements ReactiveLoggerListener<DefaultReactiveLogger.LogContext>{
 
-    private final org.slf4j.Logger logger = LoggerFactory.getLogger(DefaultReactiveLogger.class);
+    private final Logger logger;
 
     private final Clock clock;
 
     public DefaultReactiveLogger(Clock clock) {
+        this(clock, LoggerFactory.getLogger(DefaultReactiveLogger.class));
+    }
+
+    public DefaultReactiveLogger(Clock clock, Logger logger) {
         this.clock = clock;
+        this.logger = logger;
     }
 
     @Override
